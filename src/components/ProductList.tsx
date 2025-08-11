@@ -1,11 +1,13 @@
 import { ProductsType } from "@/types";
 import Categories from "./Categories";
 import ProductCards from "./ProductCards";
+import Link from "next/link";
+import Filter from "./Filter";
 
 // TEMPORARY
 const products: ProductsType = [
   {
-    id: 1,
+    id: 0,
     name: "Adidas CoreFit T-Shirt",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -21,7 +23,7 @@ const products: ProductsType = [
     },
   },
   {
-    id: 2,
+    id: 1,
     name: "Puma Ultra Warm Zip",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -33,7 +35,7 @@ const products: ProductsType = [
     images: { gray: "/products/2g.png", green: "/products/2gr.png" },
   },
   {
-    id: 3,
+    id: 2,
     name: "Nike Air Essentials Pullover",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -49,7 +51,7 @@ const products: ProductsType = [
     },
   },
   {
-    id: 4,
+    id: 3,
     name: "Nike Dri Flex T-Shirt",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -61,7 +63,7 @@ const products: ProductsType = [
     images: { white: "/products/4w.png", pink: "/products/4p.png" },
   },
   {
-    id: 5,
+    id: 4,
     name: "Under Armour StormFleece",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -77,7 +79,7 @@ const products: ProductsType = [
     },
   },
   {
-    id: 6,
+    id: 5,
     name: "Nike Air Max 270",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -89,7 +91,7 @@ const products: ProductsType = [
     images: { gray: "/products/6g.png", white: "/products/6w.png" },
   },
   {
-    id: 7,
+    id: 6,
     name: "Nike Ultraboost Pulse ",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -101,7 +103,7 @@ const products: ProductsType = [
     images: { gray: "/products/7g.png", pink: "/products/7p.png" },
   },
   {
-    id: 8,
+    id: 7,
     name: "Levi’s Classic Denim",
     shortDescription:
       "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
@@ -114,15 +116,29 @@ const products: ProductsType = [
   },
 ];
 
-const ProductList = () => {
+const ProductList = ({
+  category,
+  params,
+}: {
+  category: string;
+  params: "homepage" | "products";
+}) => {
   return (
     <div className="w-full">
       <Categories />
+      {params === "products" && <Filter />}
+
       <div className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-12 ">
         {products.map((product) => (
           <ProductCards key={product.id} product={product} />
         ))}
       </div>
+      <Link
+        href={category ? `/products/?category=${category}` : "/products"}
+        className="flex justify-end mt-4 underline text-sm text-gray-500"
+      >
+        View all product
+      </Link>
     </div>
   );
 };
